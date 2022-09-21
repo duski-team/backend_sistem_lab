@@ -1,0 +1,36 @@
+const masterUser = require('../module/master_user/model');
+const axios = require('axios').default;
+let url = process.env.url_sso
+
+async function authentification (req,res,next){
+    try {
+
+        const kirim = {
+            method: 'post',
+            url:url,
+            headers: {'Authorization':`Bearer ${req.headers.token}`}
+        }
+        let decode = await axios(kirim);
+        let user = decode.data.user;
+
+        masterUser.findAll({where:{identity_billing:user.identity}}).then(data => {
+            if(data.length>0){
+                user.idSibiling = data[0].id; // userId
+                user.identity_billing = data[0].identity_billing;
+                user.email = data[0].email;
+                user.level = data[0].level;
+                user.prodi_id = data[0].prodi_id;
+                req.dataUser = user
+                next();
+            }
+            else{
+                res.status(201).json({ status: 201, message: "anda tidak memiliki akses" });
+            }
+        })
+    } catch (err) {
+        console.log(err);
+         res.status(201).json({ status: 401, message: "invalid token" });
+    }
+}
+
+module.exports = authentification
