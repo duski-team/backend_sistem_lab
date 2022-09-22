@@ -12,7 +12,7 @@ async function authentification (req,res,next){
         }
         let decode = await axios(kirim);
         let user = decode.data.user;
-        console.log(user);
+        // console.log(user);
 
         masterUser.findAll({where:{identity_lab:user.identity}}).then(data => {
             if(data.length>0){
