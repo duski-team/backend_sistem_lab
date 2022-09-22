@@ -12,11 +12,12 @@ async function authentification (req,res,next){
         }
         let decode = await axios(kirim);
         let user = decode.data.user;
+        console.log(user);
 
-        masterUser.findAll({where:{identity_billing:user.identity}}).then(data => {
+        masterUser.findAll({where:{identity_lab:user.identity}}).then(data => {
             if(data.length>0){
                 user.idSibiling = data[0].id; // userId
-                user.identity_billing = data[0].identity_billing;
+                user.identity_lab = data[0].identity_lab;
                 user.email = data[0].email;
                 user.level = data[0].level;
                 user.prodi_id = data[0].prodi_id;

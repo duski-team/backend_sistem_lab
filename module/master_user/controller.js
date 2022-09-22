@@ -8,11 +8,11 @@ const s = {type:QueryTypes.SELECT};
 function createSuperUser (req,res){
     masterUser.findOrCreate({
         where: {
-            identity_lab: "1"
+            identity_lab: "2"
         },
         defaults: {
             id: 'adminlab',
-            identity_lab:'1',
+            identity_lab:'2',
             email: 'adminlab@lab.com',
             level: 99,
         }
