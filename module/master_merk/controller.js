@@ -1,24 +1,23 @@
 const {sq} = require("../../config/connection");
 const { v4: uuid_v4 } = require("uuid");
-const tipe_barang = require("./model");
-const { QueryTypes } = require('sequelize'); 
-
+const merk = require("./model");
+const { QueryTypes } = require('sequelize');
 const s = {type:QueryTypes.SELECT};
 
 
 class Controller{
 
     static register(req,res){
-        const{nama_tipe_barang}=req.body
-        tipe_barang.findAll({where:{
-            nama_tipe_barang
+        const{nama_merk}=req.body
+        merk.findAll({where:{
+            nama_merk
         }})
         .then(hasil1=>{
             if(hasil1.length){
                 res.status(200).json({ status: 200, message: "data sudah ada"})
             }
             else{
-                tipe_barang.create({id:uuid_v4(),nama_tipe_barang})
+                merk.create({id:uuid_v4(),nama_merk})
                 .then(hasil2=>{
                     res.status(200).json({ status: 200, message: "sukses",data:hasil2.id})
                 })
@@ -31,8 +30,8 @@ class Controller{
     }
 
     static update(req,res){
-        const{id,nama_tipe_barang}=req.body
-        tipe_barang.update({nama_tipe_barang},{where:{
+        const{id,nama_merk}=req.body
+        merk.update({nama_merk},{where:{
             id
         }})
         .then(hasil=>{
@@ -45,7 +44,7 @@ class Controller{
     }
 
     static list(req,res){
-        tipe_barang.findAll({})
+        merk.findAll({})
         .then(hasil=>{
             res.status(200).json({ status: 200, message: "sukses",data:hasil})
         })
@@ -57,7 +56,7 @@ class Controller{
 
     static detailsById(req,res){
         const{id}=req.params
-        tipe_barang.findAll({where:{
+        merk.findAll({where:{
             id
         }})
         .then(hasil=>{
@@ -71,7 +70,7 @@ class Controller{
 
     static delete(req,res){
         const{id}=req.body
-        tipe_barang.destroy({where:{
+        merk.destroy({where:{
             id
         }})
         .then(hasil=>{

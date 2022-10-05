@@ -1,12 +1,12 @@
 const { DataTypes } = require('sequelize');
 const {sq} = require('../../config/connection');
 
-const tipe_barang = sq.define('tipe_barang', {
+const kategori_barang = sq.define('kategori_barang', {
     id: {
         type: DataTypes.STRING,
         primaryKey: true,
     },
-    nama_tipe_barang: {
+    nama_kategori_barang: {
         type: DataTypes.STRING
     },
 },
@@ -15,4 +15,4 @@ const tipe_barang = sq.define('tipe_barang', {
         freezeTableName: true
     });
 
-module.exports = tipe_barang
+module.exports = kategori_barang
