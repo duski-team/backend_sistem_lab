@@ -10,6 +10,7 @@ router.use('/poolKampusFakultas',require('./module/pool_kampus_fakultas/route'))
 router.use('/laboratorium',require('./module/laboratorium/route'))
 router.use('/kategoriBarang',require('./module/kategori_barang/route'))
 router.use('/masterMerk',require('./module/master_merk/route'))
+router.use('/simadu',require('./module/simadu/route'))
 
 
 
