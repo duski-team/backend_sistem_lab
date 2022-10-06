@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const {sq} = require('../../config/connection');
 const prodi = require('../prodi/model');
 
-const masterUser = sq.define('master_user', {
+const masterUser = sq.define('master_user_lab', {
     id: {
         type: DataTypes.STRING,
         primaryKey: true,

@@ -1,4 +1,4 @@
-const {sq} = require("../../config/connection");
+const {sq,all} = require("../../config/connection");
 const { v4: uuid_v4 } = require("uuid");
 const { Op } = require("sequelize");
 const kampus = require("./model");
@@ -55,27 +55,29 @@ class Controller {
     }
 
     static async list (req,res){
-        kampus.findAll().then(data =>{
-            res.status(200).json({ status: 200, message: "sukses",data});
-        }).catch(err =>{
-            console.log(req.params);
-            console.log(err);
-            res.status(500).json({ status: 500, message: "gagal", data: err });
-        })
+        try {
+            let data = await all.query(`select k.id as kampus_id,* from kampus k join wilayah w on k.wilayah_id = w.id where k."deletedAt" isnull `,s)
+            res.status(200).json({ status: 200, message: "sukses",data})
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ status: 500, message: "gagal", data: error})
+        }
     }
 
     
 
-    static detailsById (req,res){
+    static async detailsById (req,res){
         const{id}= req.params
 
-        kampus.findAll({where:{id}}).then(data =>{
-            res.status(200).json({ status: 200, message: "sukses",data});
-        }).catch(err =>{
-            console.log(req.params);
-            console.log(err);
-            res.status(500).json({ status: 500, message: "gagal", data: err });
-        })
+        try {
+            let data = await all.query(`select k.id as kampus_id,* from kampus k join wilayah w on k.wilayah_id = w.id where k."deletedAt" isnull and k.id='${id}' `,s)
+            res.status(200).json({ status: 200, message: "sukses",data})
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ status: 500, message: "gagal", data: error})
+        }
     }
 }
 module.exports = Controller;

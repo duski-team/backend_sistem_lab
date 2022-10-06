@@ -55,13 +55,11 @@ class Controller {
     }
 
     static async list (req,res){
-        pool_kampus_prodi.findAll().then(data =>{
-            res.status(200).json({ status: 200, message: "sukses",data});
-        }).catch(err =>{
-            console.log(req.params);
-            console.log(err);
-            res.status(500).json({ status: 500, message: "gagal", data: err });
-        })
+     try {
+          let data = await sq.query(``)
+     } catch (error) {
+        
+     }
     }
 
     

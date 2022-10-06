@@ -38,6 +38,24 @@ const sq = new Sequelize(process.env.DB_NAME,process.env.DB_USER,process.env.DB_
     timezone: '+07:00'
   });
 
+  const all = new Sequelize(process.env.DB_NAME_ALL,process.env.DB_USER_ALL,process.env.DB_PASS_ALL, {
+    host: process.env.DB_HOST_ALL,
+    port: process.env.DB_PORT_ALL,
+    dialect: process.env.DB_DIAL_ALL,
+    logging:false,
+    dialectOptions:{
+      dateStrings: true,
+      typeCast: true,
+    },
+    pool: {
+      max: 1000,
+      min: 0,
+      idle: 200000,
+      acquire: 1000000,
+    },
+    timezone: '+07:00'
+  });
+
 
 // const sso = new Sequelize(process.env.DB_NAME_SSO,process.env.DB_USER,process.env.DB_PASS, {
 //     host: process.env.DB_HOST,
@@ -78,4 +96,4 @@ const sq = new Sequelize(process.env.DB_NAME,process.env.DB_USER,process.env.DB_
 
   
 
-module.exports = {sq,simadu}
+module.exports = {sq,simadu,all}
