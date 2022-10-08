@@ -1,4 +1,4 @@
-const {sq} = require("../../config/connection");
+const {sq,all} = require("../../config/connection");
 const { v4: uuid_v4 } = require("uuid");
 const { Op } = require("sequelize");
 const pool_kampus_prodi = require("./model");
@@ -56,11 +56,30 @@ class Controller {
 
     static async list (req,res){
      try {
-          let data = await sq.query(``)
+          let data = await all.query(`select pkp.id as pool_id,* from pool_kampus_prodi pkp 
+          join prodi p on  pkp.prodi_id =p.id 
+          join kampus k on k.id=pkp.kampus_id 
+          where pkp."deletedAt" isnull `,s)
+          res.status(200).json({ status: 200, message: "sukses",data})
      } catch (error) {
-        
+        console.log(error);
+            res.status(500).json({ status: 500, message: "gagal", data: error})
      }
     }
+
+    static async detailsById (req,res){
+        const{id}=req.params
+        try {
+             let data = await all.query(`select pkp.id as pool_id,* from pool_kampus_prodi pkp 
+             join prodi p on  pkp.prodi_id =p.id 
+             join kampus k on k.id=pkp.kampus_id 
+             where pkp."deletedAt" isnull and pkp.id = ${id} `,s)
+             res.status(200).json({ status: 200, message: "sukses",data})
+        } catch (error) {
+           console.log(error);
+               res.status(500).json({ status: 500, message: "gagal", data: error})
+        }
+       }
 
     
 
