@@ -25,6 +25,48 @@ class Controller{
             res.status(500).json({ status: 500, message: "gagal", data: error})
         }
     }
+
+    static async listProdi(req,res){
+        try {
+            let data = await simadu.query(`select * from prodi p  where p."deletedAt" isnull `,s)
+            res.status(200).json({ status: 200, message: "sukses", data})
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ status: 500, message: "gagal", data: error})
+        }
+    }
+
+    static async detailsProdiById(req,res){
+        const{id}=req.params
+        try {
+            let data = await simadu.query(`select * from prodi p  where p."deletedAt" isnull and p.id ='${id}'`,s)
+            res.status(200).json({ status: 200, message: "sukses", data})
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ status: 500, message: "gagal", data: error})
+        }
+    }
+
+    static async listFakultas(req,res){
+        try {
+            let data = await simadu.query(`select * from fakultas f where f."deletedAt" isnull  `,s)
+            res.status(200).json({ status: 200, message: "sukses", data})
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ status: 500, message: "gagal", data: error})
+        }
+    }
+
+    static async detailsFakultasById(req,res){
+        const{id}=req.params
+        try {
+            let data = await simadu.query(`select * from fakultas f where f."deletedAt" isnull and f.id ='${id}'  `,s)
+            res.status(200).json({ status: 200, message: "sukses", data})
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ status: 500, message: "gagal", data: error})
+        }
+    }
 }
 
 module.exports=Controller

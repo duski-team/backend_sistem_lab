@@ -1,4 +1,4 @@
-const {sq} = require("../../config/connection");
+const {sq,all} = require("../../config/connection");
 const { v4: uuid_v4 } = require("uuid");
 const { Op } = require("sequelize");
 const pool_kampus_fakultas = require("./model");
@@ -55,27 +55,32 @@ class Controller {
     }
 
     static async list (req,res){
-        pool_kampus_fakultas.findAll().then(data =>{
-            res.status(200).json({ status: 200, message: "sukses",data});
-        }).catch(err =>{
-            console.log(req.params);
-            console.log(err);
-            res.status(500).json({ status: 500, message: "gagal", data: err });
-        })
+     try {
+        let data = await all.query(`select pkf.id as pool_kampus_fakultas_id,* from pool_kampus_fakultas pkf 
+        join fakultas f on f.id = pkf.fakultas_id 
+        join kampus k on k.id = pkf.kampus_id 
+        where pkf."deletedAt" isnull `,s)
+        res.status(200).json({ status: 200, message: "sukses",data})
+     } catch (error) {
+        console.log(error);
+        res.status(500).json({ status: 500, message: "gagal", data: error})
+     }
     }
 
     
 
-    static detailsById (req,res){
-        const{id}= req.params
-
-        pool_kampus_fakultas.findAll({where:{id}}).then(data =>{
-            res.status(200).json({ status: 200, message: "sukses",data});
-        }).catch(err =>{
-            console.log(req.params);
-            console.log(err);
-            res.status(500).json({ status: 500, message: "gagal", data: err });
-        })
-    }
+    static async detailsById (req,res){
+        const{id}=req.params
+        try {
+           let data = await all.query(`select pkf.id as pool_kampus_fakultas_id,* from pool_kampus_fakultas pkf 
+           join fakultas f on f.id = pkf.fakultas_id 
+           join kampus k on k.id = pkf.kampus_id 
+           where pkf."deletedAt" isnull and pkf.id= '${id}' `,s)
+           res.status(200).json({ status: 200, message: "sukses",data})
+        } catch (error) {
+           console.log(error);
+           res.status(500).json({ status: 500, message: "gagal", data: error})
+        }
+       }
 }
 module.exports = Controller;
