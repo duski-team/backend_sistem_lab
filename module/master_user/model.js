@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const {sq} = require('../../config/connection');
-const prodi = require('../prodi/model');
 
 const masterUser = sq.define('master_user_lab', {
     id: {
@@ -15,6 +14,9 @@ const masterUser = sq.define('master_user_lab', {
     },
     level: {
         type: DataTypes.INTEGER // 99: superUser
+    },
+    prodi_id:{
+        type:DataTypes.STRING
     }
 },
     {
@@ -22,7 +24,5 @@ const masterUser = sq.define('master_user_lab', {
         freezeTableName: true
     });
 
-    masterUser.belongsTo(prodi,{foreignKey:'prodi_id'});
-    prodi.hasMany(masterUser,{foreignKey:'prodi_id'});
     
 module.exports = masterUser

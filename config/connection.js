@@ -38,6 +38,24 @@ const sq = new Sequelize(process.env.DB_NAME,process.env.DB_USER,process.env.DB_
     timezone: '+07:00'
   });
 
+  const simpeg = new Sequelize(process.env.DB_NAME_SIMPEG,process.env.DB_USER_SIMPEG,process.env.DB_PASS_SIMPEG, {
+    host: process.env.DB_HOST_SIMPEG,
+    port: process.env.DB_PORT_SIMPEG,
+    dialect: process.env.DB_DIAL_SIMPEG,
+    logging:false,
+    dialectOptions:{
+      dateStrings: true,
+      typeCast: true,
+    },
+    pool: {
+      max: 1000,
+      min: 0,
+      idle: 200000,
+      acquire: 1000000,
+    },
+    timezone: '+07:00'
+  });
+
   const all = new Sequelize(process.env.DB_NAME_ALL,process.env.DB_USER_ALL,process.env.DB_PASS_ALL, {
     host: process.env.DB_HOST_ALL,
     port: process.env.DB_PORT_ALL,
@@ -96,4 +114,4 @@ const sq = new Sequelize(process.env.DB_NAME,process.env.DB_USER,process.env.DB_
 
   
 
-module.exports = {sq,simadu,all}
+module.exports = {sq,simadu,all,simpeg}

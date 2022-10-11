@@ -1,4 +1,4 @@
-const {sq} = require("../../config/connection");
+const {sq,all} = require("../../config/connection");
 const { v4: uuid_v4 } = require("uuid");
 const { Op } = require("sequelize");
 const jenis_lab = require("./model");
@@ -55,27 +55,26 @@ class Controller {
     }
 
     static async list (req,res){
-        jenis_lab.findAll().then(data =>{
-            res.status(200).json({ status: 200, message: "sukses",data});
-        }).catch(err =>{
-            console.log(req.params);
-            console.log(err);
+       try {
+        let data = await all.query(`select * from jenis_lab jl join fakultas f on jl.fakultas_id = f.id where jl."deletedAt" isnull `,s,)
+        res.status(200).json({ status: 200, message: "sukses",data});
+       } catch (error) {
+        console.log(err);
             res.status(500).json({ status: 500, message: "gagal", data: err });
-        })
+       }
     }
 
     
 
-    static detailsById (req,res){
+    static async detailsById (req,res){
         const{id}= req.params
-
-        jenis_lab.findAll({where:{id}}).then(data =>{
+        try {
+            let data = await all.query(`select * from jenis_lab jl join fakultas f on jl.fakultas_id = f.id where jl."deletedAt" isnull and jl.id='${id}'`,s,)
             res.status(200).json({ status: 200, message: "sukses",data});
-        }).catch(err =>{
-            console.log(req.params);
+           } catch (error) {
             console.log(err);
-            res.status(500).json({ status: 500, message: "gagal", data: err });
-        })
+                res.status(500).json({ status: 500, message: "gagal", data: err });
+           }
     }
 }
 module.exports = Controller;
