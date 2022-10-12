@@ -1,4 +1,4 @@
-const {sq,sia} = require("../../config/connection");
+const {all,sia} = require("../../config/connection");
 const { v4: uuid_v4 } = require("uuid");
 const masterUser = require("./model");
 const { QueryTypes } = require('sequelize');
@@ -75,9 +75,9 @@ class Controller {
                 isi += ` and mu.prodi_id = '${prodi_id}'`
             }
 
-            let data =  await sq.query(`select mu.*,p.nama_prodi,p.kode_prodi from master_user mu left join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull${isi} order by mu."createdAt" desc limit ${jumlah} offset ${offset}`,s);
-            let data2 =  await sq.query(`select mu.*,p.nama_prodi,p.kode_prodi from master_user mu left join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull${isi} order by mu."createdAt" desc limit ${jumlah} offset ${offset2}`,s);
-            let jml =  await sq.query(`select count(*) as "total" from master_user mu left join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull${isi}`,s);
+            let data =  await all.query(`select mu.*,p.nama_program_studi_prodi,p.kode_program_studi_prodi from master_user_lab mu left join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull${isi} order by mu."createdAt" desc limit ${jumlah} offset ${offset}`,s);
+            let data2 =  await all.query(`select mu.*,p.nama_program_studi_prodi,p.kode_program_studi_prodi from master_user_lab mu left join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull${isi} order by mu."createdAt" desc limit ${jumlah} offset ${offset2}`,s);
+            let jml =  await all.query(`select count(*) as "total" from master_user_lab mu left join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull${isi}`,s);
             if(data2.length==0){
                 sisa = false
             }
@@ -91,7 +91,7 @@ class Controller {
 
     static async listHalaman (req,res){
         try {
-            let data =  await sq.query(`select mu.*,p.nama_prodi,p.kode_prodi from master_user mu left join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull order by mu."createdAt" desc`,s);
+            let data =  await all.query(`select mu.*,p.nama_program_studi_prodi,p.kode_program_studi_prodi from master_user_lab mu left join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull order by mu."createdAt" desc`,s);
             
             res.status(200).json({ status: 200, message: "sukses",data });
         } catch (err) {
@@ -104,7 +104,7 @@ class Controller {
         const{id}= req.params
 
         try {
-            let data =  await sq.query(`select mu.*,p.nama_prodi,p.kode_prodi from master_user mu left join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull and mu.id = '${id}'`,s);
+            let data =  await all.query(`select mu.*,p.nama_program_studi_prodi,p.kode_program_studi_prodi from master_user_lab mu left join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull and mu.id = '${id}'`,s);
             
             res.status(200).json({ status: 200, message: "sukses",data });
         } catch (err) {
@@ -117,7 +117,7 @@ class Controller {
         const{prodi_id}= req.body;
 
         try {
-            let data =  await sq.query(`select mu.*,p.nama_prodi,p.kode_prodi from master_user mu join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull and mu.prodi_id = '${prodi_id}'`,s);
+            let data =  await all.query(`select mu.*,p.nama_program_studi_prodi,p.kode_program_studi_prodi from master_user_lab mu join prodi p on p.id = mu.prodi_id  where mu."deletedAt" isnull and mu.prodi_id = '${prodi_id}'`,s);
             
             res.status(200).json({ status: 200, message: "sukses",data });
         } catch (err) {
