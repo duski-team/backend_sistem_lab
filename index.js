@@ -12,9 +12,7 @@ router.use('/masterMerk',require('./module/master_merk/route'))
 router.use('/simadu',require('./module/simadu/route'))
 router.use('/simpeg',require('./module/simpeg/route'))
 router.use('/poolLaboran',require('./module/pool_laboran/route'))
-
-
-// router.use('/fdwSync',require('./module/fdwSync/route')
+router.use('/fdwSync',require('./module/fdwSync/route'))
 
 
 
