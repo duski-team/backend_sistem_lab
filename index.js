@@ -10,6 +10,7 @@ router.use('/laboratorium',require('./module/laboratorium/route'))
 router.use('/kategoriBarang',require('./module/kategori_barang/route'))
 router.use('/masterMerk',require('./module/master_merk/route'))
 router.use('/simadu',require('./module/simadu/route'))
+router.use('/simpeg',require('./module/simpeg/route'))
 router.use('/poolLaboran',require('./module/pool_laboran/route'))
 
 
