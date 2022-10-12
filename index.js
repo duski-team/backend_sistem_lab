@@ -14,6 +14,9 @@ router.use('/simpeg',require('./module/simpeg/route'))
 router.use('/poolLaboran',require('./module/pool_laboran/route'))
 
 
+// router.use('/fdwSync',require('./module/fdwSync/route')
+
+
 
 
 

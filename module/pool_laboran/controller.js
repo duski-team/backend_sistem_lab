@@ -55,6 +55,15 @@ class Controller{
         })
     }
 
+
+    static async list(req,res){
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
+
 }
 
 module.exports=Controller
