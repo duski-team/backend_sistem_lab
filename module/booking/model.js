@@ -8,6 +8,24 @@ const booking = sq.define('booking', {
         type: DataTypes.STRING,
         primaryKey: true,
     },
+    booking_peminjam_mahasiswa:{
+        type:DataTypes.STRING
+    },
+    booking_peminjam_tendik:{
+        type:DataTypes.STRING
+    },
+    booking_peminjam_eksternal:{
+        type:DataTypes.STRING
+    },
+    booking_in:{
+        type:DataTypes.DATE
+    },
+    booking_out:{
+        type:DataTypes.DATE
+    },
+    accepted:{
+        type:DataTypes.SMALLINT
+    }
 
 },
     {
@@ -17,5 +35,8 @@ const booking = sq.define('booking', {
 
 booking.belongsTo(laboratorium,{foreignKey:"laboratorium_id"})
 laboratorium.hasMany(booking,{foreignKey:"laboratorium_id"})
+
+booking.belongsTo(jenis_lab,{foreignKey:"jenis_lab_id"})
+jenis_lab.hasMany(booking,{foreignKey:"jenis_lab_id"})
 
 module.exports = booking

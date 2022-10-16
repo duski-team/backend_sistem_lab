@@ -13,6 +13,8 @@ router.use('/simadu',require('./module/simadu/route'))
 router.use('/simpeg',require('./module/simpeg/route'))
 router.use('/poolLaboran',require('./module/pool_laboran/route'))
 router.use('/fdwSync',require('./module/fdwSync/route'))
+router.use('/booking',require('./module/booking/route'))
+router.use('/jenisBahan',require('./module/jenis_bahan/route'))
 
 
 

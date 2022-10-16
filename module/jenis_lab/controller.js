@@ -56,7 +56,7 @@ class Controller {
 
     static async list (req,res){
        try {
-        let data = await all.query(`select * from jenis_lab jl join fakultas f on jl.fakultas_id = f.id where jl."deletedAt" isnull `,s,)
+        let data = await all.query(`select jl.id as jenis_lab_id,* from jenis_lab jl join fakultas f on jl.fakultas_id = f.id where jl."deletedAt" isnull `,s,)
         res.status(200).json({ status: 200, message: "sukses",data});
        } catch (error) {
         console.log(err);
@@ -69,7 +69,7 @@ class Controller {
     static async detailsById (req,res){
         const{id}= req.params
         try {
-            let data = await all.query(`select * from jenis_lab jl join fakultas f on jl.fakultas_id = f.id where jl."deletedAt" isnull and jl.id='${id}'`,s,)
+            let data = await all.query(`select jl.id as jenis_lab_id,* from jenis_lab jl join fakultas f on jl.fakultas_id = f.id where jl."deletedAt" isnull and jl.id='${id}'`,s,)
             res.status(200).json({ status: 200, message: "sukses",data});
            } catch (error) {
             console.log(err);
