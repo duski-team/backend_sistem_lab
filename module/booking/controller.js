@@ -47,6 +47,18 @@ class Controller{
         })
     }
 
+
+    static async list(req,res){
+        const{booking_in,booking_out,booking_peminjam_mahasiswa,booking_peminjam_tendik,booking_peminjam_eksternal,accepted}=req.body
+
+        try {
+            
+        } catch (error) {
+            
+        }
+
+    }
+
 }
 
 module.exports=Controller

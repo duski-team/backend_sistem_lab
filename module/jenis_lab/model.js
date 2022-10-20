@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const {sq} = require('../../config/connection');
+const laboratorium= require('../laboratorium/model')
 
 const jenis_lab = sq.define('jenis_lab', {
     id: {
@@ -18,5 +19,8 @@ const jenis_lab = sq.define('jenis_lab', {
         paranoid: true,
         freezeTableName: true
     });
+
+jenis_lab.belongsTo(laboratorium,{foreignKey:"laboratorium_id"})
+laboratorium.hasMany(jenis_lab,{foreignKey:"laboratorium_id"})
 
 module.exports = jenis_lab

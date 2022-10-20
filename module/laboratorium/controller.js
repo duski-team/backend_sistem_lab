@@ -56,7 +56,7 @@ class Controller {
 
     static async list (req,res){
       try {
-        let data = await all.query(`select l.*,k.alamat_kampus ,mp.nama_pegawai as nama_kasubag,mp2.nama_pegawai as nama_kajur,f.nama_fakultas from laboratorium l 
+        let data = await all.query(`select l.id as laboratorium_id,l.*,k.alamat_kampus ,mp.nama_pegawai as nama_kasubag,mp2.nama_pegawai as nama_kajur,f.nama_fakultas from laboratorium l 
         join master_pegawai mp on mp.id = l.kasubag_id
         join master_pegawai mp2 on mp2.id = l.kajur_id
         join fakultas f on f.id = l.fakultas_id

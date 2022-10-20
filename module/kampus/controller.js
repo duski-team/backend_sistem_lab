@@ -8,7 +8,7 @@ const s = {type:QueryTypes.SELECT};
 class Controller {
 
     static register (req,res){
-        const {wilayah_id,alamat_kampus}= req.body
+        const {wilayah_id,alamat_kampus,nama_kampus,gmaps_kampus}= req.body
 
         kampus.findAll({where:{
             wilayah_id,alamat_kampus
@@ -18,7 +18,7 @@ class Controller {
                 res.status(200).json({ status: 200, message: "data sudah ada"})
             }
             else{
-                kampus.create({id:uuid_v4(),wilayah_id,alamat_kampus})
+                kampus.create({id:uuid_v4(),wilayah_id,alamat_kampus,nama_kampus,gmaps_kampus})
                 .then(hasil2=>{
                     res.status(200).json({ status: 200, message: "sukses",data:hasil2.id})
                 })
@@ -31,9 +31,9 @@ class Controller {
     }
 
     static update (req,res){
-        const {id,wilayah_id,alamat_kampus}= req.body
+        const {id,wilayah_id,alamat_kampus,nama_kampus,gmaps_kampus}= req.body
         
-        kampus.update({wilayah_id,alamat_kampus},{where:{id}}).then(data =>{
+        kampus.update({wilayah_id,alamat_kampus,nama_kampus,gmaps_kampus},{where:{id}}).then(data =>{
             res.status(200).json({ status: 200, message: "sukses" });
         }).catch(err =>{
             console.log(req.body);

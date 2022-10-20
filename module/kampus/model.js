@@ -11,6 +11,12 @@ const kampus = sq.define('kampus', {
     },
     alamat_kampus:{
         type:DataTypes.STRING
+    },
+    nama_kampus:{
+        type:DataTypes.STRING
+    },
+    gmaps_kampus:{
+        type:DataTypes.STRING
     }
 },
     {

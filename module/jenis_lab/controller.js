@@ -8,7 +8,7 @@ const s = {type:QueryTypes.SELECT};
 class Controller {
 
     static register (req,res){
-        const {fakultas_id,nama_jenis_lab}= req.body
+        const {fakultas_id,nama_jenis_lab,laboratorium_id}= req.body
 
         jenis_lab.findAll({where:{
             fakultas_id,nama_jenis_lab
@@ -18,7 +18,7 @@ class Controller {
                 res.status(200).json({ status: 200, message: "data sudah ada"})
             }
             else{
-                jenis_lab.create({id:uuid_v4(),fakultas_id,nama_jenis_lab})
+                jenis_lab.create({id:uuid_v4(),fakultas_id,nama_jenis_lab,laboratorium_id})
                 .then(hasil2=>{
                     res.status(200).json({ status: 200, message: "sukses",data:hasil2.id})
                 })

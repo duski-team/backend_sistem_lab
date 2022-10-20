@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 const {sq} = require('../../config/connection');
 
-const jenis_lab= require('../jenis_lab/model')
-const pool_kampus_fakultas=require('../pool_kampus_fakultas/model')
+// const jenis_lab= require('../jenis_lab/model')
+// const pool_kampus_fakultas=require('../pool_kampus_fakultas/model')
 const kampus = require('../kampus/model')
 
 const laboratorium = sq.define('laboratorium', {
