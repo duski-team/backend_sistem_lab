@@ -8,5 +8,6 @@ router.get('/listProdi',authentification,Controller.listProdi);
 router.get('/detailsProdiById/:id',authentification,Controller.detailsProdiById);
 router.get('/listFakultas',authentification,Controller.listFakultas);
 router.get('/detailsFakultasById/:id',authentification,Controller.detailsFakultasById);
+router.get('/detailsMahasiswaByNIM/:NIM',authentification,Controller.detailsMahasiswaByNIM);
 
 module.exports = router

@@ -67,6 +67,22 @@ class Controller{
             res.status(500).json({ status: 500, message: "gagal", data: error})
         }
     }
+
+    static async detailsMahasiswaByNIM(req,res){
+        const{NIM}=req.params
+        console.log(NIM);
+        try {
+            let data = await simadu.query(`select rm.id as registrasi_mahasiswa_id,rm.*,mbm.nama_mahasiswa,p.nama_program_studi_prodi,f.nama_fakultas from registrasi_mahasiswa rm
+            join master_biodata_mahasiswa mbm on mbm.id =rm.biodata_mahasiswa_id 
+            join prodi p on p.id = rm.prodi_id 
+            join fakultas f on f.id=p.fakultas_id 
+            where rm."NIM" ='${NIM}'`,s)
+            res.status(200).json({ status: 200, message: "sukses", data})
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ status: 500, message: "gagal", data: error})
+        }
+    }
 }
 
 module.exports=Controller
