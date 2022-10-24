@@ -21,6 +21,9 @@ const laboratorium = sq.define('laboratorium', {
     },
     fakultas_id:{
         type:DataTypes.STRING
+    },
+    nama_laboratorium:{
+        type:DataTypes.STRING
     }
 },
     {

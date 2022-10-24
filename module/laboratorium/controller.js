@@ -8,7 +8,7 @@ const s = {type:QueryTypes.SELECT};
 class Controller {
 
     static register (req,res){
-        const {kasubag_id,kajur_id,is_kajur,fakultas_id,kampus_id}= req.body
+        const {kasubag_id,kajur_id,is_kajur,fakultas_id,kampus_id,nama_laboratorium}= req.body
 
         laboratorium.findAll({where:{
             fakultas_id,kampus_id
@@ -18,7 +18,7 @@ class Controller {
                 res.status(200).json({ status: 200, message: "data sudah ada"})
             }
             else{
-                laboratorium.create({id:uuid_v4(),kasubag_id,kajur_id,is_kajur,fakultas_id,kampus_id})
+                laboratorium.create({id:uuid_v4(),kasubag_id,kajur_id,is_kajur,fakultas_id,kampus_id,nama_laboratorium})
                 .then(hasil2=>{
                     res.status(200).json({ status: 200, message: "sukses",data:hasil2.id})
                 })
@@ -31,9 +31,9 @@ class Controller {
     }
 
     static update (req,res){
-        const {id,kasubag_id,kajur_id,is_kajur,fakultas_id,kampus_id}= req.body
+        const {id,kasubag_id,kajur_id,is_kajur,fakultas_id,kampus_id,nama_laboratorium}= req.body
         
-        laboratorium.update({kasubag_id,kajur_id,is_kajur,fakultas_id,kampus_id},{where:{id}}).then(data =>{
+        laboratorium.update({kasubag_id,kajur_id,is_kajur,fakultas_id,kampus_id,nama_laboratorium},{where:{id}}).then(data =>{
             res.status(200).json({ status: 200, message: "sukses" });
         }).catch(err =>{
             console.log(req.body);
