@@ -36,7 +36,7 @@ const booking = sq.define('booking', {
 booking.belongsTo(laboratorium,{foreignKey:"laboratorium_id"})
 laboratorium.hasMany(booking,{foreignKey:"laboratorium_id"})
 
-booking.belongsTo(jenis_lab,{foreignKey:"jenis_lab_id"})
-jenis_lab.hasMany(booking,{foreignKey:"jenis_lab_id"})
+// booking.belongsTo(jenis_lab,{foreignKey:"jenis_lab_id"})
+// jenis_lab.hasMany(booking,{foreignKey:"jenis_lab_id"})
 
 module.exports = booking
