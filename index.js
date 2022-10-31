@@ -15,6 +15,8 @@ router.use('/poolLaboran',require('./module/pool_laboran/route'))
 router.use('/fdwSync',require('./module/fdwSync/route'))
 router.use('/booking',require('./module/booking/route'))
 router.use('/jenisBahan',require('./module/jenis_bahan/route'))
+router.use('/master_jenis_alat1',require('./module/master_jenis_alat1/route'))
+router.use('/master_jenis_alat2',require('./module/master_jenis_alat2/route'))
 
 
 
