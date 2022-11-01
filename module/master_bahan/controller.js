@@ -43,29 +43,27 @@ class Controller{
         })
     }
 
-    static list(req,res){
-        bahan.findAll({})
-        .then(hasil=>{
-            res.status(200).json({ status: 200, message: "sukses",data:hasil})
-        })
-        .catch(error=>{
-            console.log(error);
-            res.status(500).json({ status: 500, message: "gagal", data: error})
-        })
+    static async list(req,res){
+       try {
+        let data = await sq.query(`select mb.id as master_bahan_id,* from master_bahan mb join master_satuan ms on mb.master_satuan_id = ms.id
+        where mb."deletedAt" isnull`,s)
+        res.status(200).json({ status: 200, message: "sukses",data})
+       } catch (error) {
+        console.log(error);
+        res.status(500).json({ status: 500, message: "gagal", data: error})
+       }
     }
 
-    static detailsById(req,res){
+    static async detailsById(req,res){
         const{id}=req.params
-        bahan.findAll({where:{
-            id
-        }})
-        .then(hasil=>{
-            res.status(200).json({ status: 200, message: "sukses",data:hasil})
-        })
-        .catch(error=>{
+        try {
+            let data = await sq.query(`select mb.id as master_bahan_id,* from master_bahan mb join master_satuan ms on mb.master_satuan_id = ms.id
+            where mb."deletedAt" isnull and mb.id ='${id}'`,s)
+            res.status(200).json({ status: 200, message: "sukses",data})
+           } catch (error) {
             console.log(error);
             res.status(500).json({ status: 500, message: "gagal", data: error})
-        })
+           }
     }
 
     static delete(req,res){
