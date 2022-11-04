@@ -30,8 +30,8 @@ class Controller{
     }
 
     static update(req,res){
-        const{id,nama_bahan}=req.body
-        bahan.update({nama_bahan},{where:{
+        const{id,nama_bahan,master_satuan_id}=req.body
+        bahan.update({nama_bahan,master_satuan_id},{where:{
             id
         }})
         .then(hasil=>{
