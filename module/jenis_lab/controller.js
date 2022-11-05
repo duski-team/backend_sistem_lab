@@ -8,17 +8,17 @@ const s = {type:QueryTypes.SELECT};
 class Controller {
 
     static register (req,res){
-        const {fakultas_id,nama_jenis_lab,laboratorium_id}= req.body
+        const {fakultas_id,master_nama_jenis_lab_id,laboratorium_id,kode_lab}= req.body
 
         jenis_lab.findAll({where:{
-            fakultas_id,nama_jenis_lab
+            fakultas_id,master_nama_jenis_lab_id,kode_lab
         }})
         .then(hasil=>{
             if(hasil.length){
                 res.status(200).json({ status: 200, message: "data sudah ada"})
             }
             else{
-                jenis_lab.create({id:uuid_v4(),fakultas_id,nama_jenis_lab,laboratorium_id})
+                jenis_lab.create({id:uuid_v4(),fakultas_id,master_nama_jenis_lab_id,laboratorium_id,kode_lab})
                 .then(hasil2=>{
                     res.status(200).json({ status: 200, message: "sukses",data:hasil2.id})
                 })
@@ -31,9 +31,9 @@ class Controller {
     }
 
     static update (req,res){
-        const {id,fakultas_id,nama_jenis_lab}= req.body
+        const {id,fakultas_id,master_nama_jenis_lab_id,kode_lab}= req.body
         
-        jenis_lab.update({fakultas_id,nama_jenis_lab},{where:{id}}).then(data =>{
+        jenis_lab.update({fakultas_id,master_nama_jenis_lab_id,kode_lab},{where:{id}}).then(data =>{
             res.status(200).json({ status: 200, message: "sukses" });
         }).catch(err =>{
             console.log(req.body);
@@ -56,11 +56,11 @@ class Controller {
 
     static async list (req,res){
        try {
-        let data = await all.query(`select jl.id as jenis_lab_id,* from jenis_lab jl join fakultas f on jl.fakultas_id = f.id where jl."deletedAt" isnull `,s,)
+        let data = await all.query(`select jl.id as jenis_lab_id,* from jenis_lab jl join fakultas f on jl.fakultas_id = f.id join master_nama_jenis_lab mnjl on mnjl.id = jl."master_nama_jenis_lab_id" where jl."deletedAt" isnull `,s,)
         res.status(200).json({ status: 200, message: "sukses",data});
        } catch (error) {
-        console.log(err);
-            res.status(500).json({ status: 500, message: "gagal", data: err });
+        console.log(error);
+            res.status(500).json({ status: 500, message: "gagal", data: error });
        }
     }
 
@@ -69,9 +69,9 @@ class Controller {
     static async detailsById (req,res){
         const{id}= req.params
         try {
-            let data = await all.query(`select jl.id as jenis_lab_id,* from jenis_lab jl join fakultas f on jl.fakultas_id = f.id where jl."deletedAt" isnull and jl.id='${id}'`,s,)
+            let data = await all.query(`select jl.id as jenis_lab_id,* from jenis_lab jl join fakultas f on jl.fakultas_id = f.id join master_nama_jenis_lab mnjl on mnjl.id = jl."master_nama_jenis_lab_id" where jl."deletedAt" isnull  and jl.id='${id}'`,s,)
             res.status(200).json({ status: 200, message: "sukses",data});
-           } catch (error) {
+           } catch (err) {
             console.log(err);
                 res.status(500).json({ status: 500, message: "gagal", data: err });
            }
